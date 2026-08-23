@@ -1,3 +1,8 @@
+"use client";
+
+import type { ReactNode } from "react";
+import { motion } from "motion/react";
+
 const WHATSAPP_HREF =
   "https://wa.me/447492585595?text=Hi%20Vending%20Forever%2C%20I%27d%20like%20to%20find%20out%20more";
 const EMAIL = "chay@hireme.link";
@@ -23,6 +28,50 @@ function MailIcon({ className }: { className?: string }) {
       <rect x="3" y="5" width="18" height="14" rx="2" />
       <path d="m4 7 8 6 8-6" />
     </svg>
+  );
+}
+
+function CheckIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+    >
+      <path d="M20 6 9 17l-5-5" />
+    </svg>
+  );
+}
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  show: { opacity: 1, y: 0 },
+};
+
+function Reveal({
+  children,
+  delay = 0,
+  className,
+}: {
+  children: ReactNode;
+  delay?: number;
+  className?: string;
+}) {
+  return (
+    <motion.div
+      className={className}
+      variants={fadeUp}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.5, delay, ease: "easeOut" }}
+    >
+      {children}
+    </motion.div>
   );
 }
 
@@ -80,12 +129,57 @@ const steps = [
   },
 ];
 
+const guarantees = [
+  {
+    title: "No long lock-ins",
+    description:
+      "Month-to-month as standard. If it's not working for your space, we'll say so, or you can walk away.",
+  },
+  {
+    title: "Underperforming machine? We fix it or move it",
+    description:
+      "If a machine isn't earning its spot, we'll swap the product mix, relocate it within your site, or pull it. No argument.",
+  },
+  {
+    title: "Faults handled fast",
+    description:
+      "Something breaks, you tell us and we're on it. You're never the one stuck troubleshooting a vending machine.",
+  },
+];
+
+const faqs = [
+  {
+    q: "Does it cost me anything upfront?",
+    a: "Full-service placement costs you nothing to start — we own and run the machine, you provide the space. Machine rental has a straightforward rental fee, agreed before anything's delivered.",
+  },
+  {
+    q: "Who actually owns the machine?",
+    a: "On a full-service placement, we own it. On a rental, you're renting it from us for the term you agree, and it stays our hardware, which is why breakdown support is included either way.",
+  },
+  {
+    q: "How do I get paid on a full-service placement?",
+    a: "You get a share of the revenue the machine generates in your space, paid out automatically on a set schedule. No invoicing, no chasing.",
+  },
+  {
+    q: "What if it breaks down?",
+    a: "Call or WhatsApp us and we'll get it sorted. Rentals and full-service placements both include breakdown support, so it's never on you to fix it.",
+  },
+  {
+    q: "How much space and power does it need?",
+    a: "Most machines need a standard wall socket and roughly the footprint of a large fridge. We'll confirm exact requirements against the machine we recommend for your site during the initial assessment.",
+  },
+  {
+    q: "How long until it's actually installed?",
+    a: "Once we've agreed the deal, most sites go live within a couple of weeks — delivery, install, and first stock load are all on us.",
+  },
+];
+
 export default function Home() {
   return (
     <>
-      <header className="sticky top-0 z-10 border-b border-border bg-background/80 backdrop-blur">
+      <header className="sticky top-0 z-20 border-b border-border bg-background/80 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <a href="#top" className="text-lg font-semibold tracking-tight">
+          <a href="#top" className="font-display text-lg font-semibold tracking-tight">
             Vending<span className="text-accent">Forever</span>
           </a>
           <nav className="hidden gap-8 text-sm text-muted sm:flex">
@@ -95,83 +189,129 @@ export default function Home() {
             <a href="#how-it-works" className="hover:text-foreground">
               How It Works
             </a>
+            <a href="#faq" className="hover:text-foreground">
+              FAQ
+            </a>
             <a href="#contact" className="hover:text-foreground">
               Contact
             </a>
           </nav>
-          <a
+          <motion.a
             href={WHATSAPP_HREF}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 rounded-full bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground hover:opacity-90"
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.97 }}
+            className="flex items-center gap-2 rounded-full bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground"
           >
             <WhatsAppIcon className="h-4 w-4" />
             WhatsApp us
-          </a>
+          </motion.a>
         </div>
       </header>
 
-      <main id="top" className="flex-1">
-        <section className="mx-auto max-w-6xl px-6 py-24 sm:py-32">
-          <p className="mb-4 text-sm font-medium uppercase tracking-widest text-accent">
-            Vending machines, sorted
-          </p>
-          <h1 className="max-w-3xl text-4xl font-bold tracking-tight sm:text-6xl">
-            Rent a machine, or let us run one for you.
-          </h1>
-          <p className="mt-6 max-w-2xl text-lg text-muted">
-            Vending Forever gets vending machines working in your space — no
-            fuss. Take one on rental and run it yourself, or let us place,
-            stock, and maintain a machine at your location while you sit
-            back and collect a share of the revenue.
-          </p>
-          <div className="mt-10 flex flex-wrap gap-4">
-            <a
-              href="#contact"
-              className="rounded-full bg-accent px-6 py-3 text-sm font-semibold text-accent-foreground hover:opacity-90"
+      <main id="top" className="flex-1 pb-20 sm:pb-0">
+        <section className="relative overflow-hidden">
+          <div className="bg-grid pointer-events-none absolute inset-0" />
+          <div
+            className="pointer-events-none absolute left-1/2 top-[-10%] h-[600px] w-[900px] -translate-x-1/2 rounded-full opacity-20 blur-3xl"
+            style={{
+              background:
+                "radial-gradient(closest-side, var(--accent), transparent)",
+            }}
+          />
+          <div className="relative mx-auto max-w-6xl px-6 py-24 sm:py-32">
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="mb-4 text-sm font-medium uppercase tracking-widest text-accent"
             >
-              Get a machine placed
-            </a>
-            <a
-              href={WHATSAPP_HREF}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 rounded-full border border-border px-6 py-3 text-sm font-semibold hover:border-accent hover:text-accent"
+              Vending machines, sorted
+            </motion.p>
+            <motion.h1
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.05 }}
+              className="font-display max-w-3xl text-4xl font-semibold tracking-tight sm:text-6xl"
             >
-              <WhatsAppIcon className="h-4 w-4" />
-              Chat on WhatsApp
-            </a>
+              Turn spare space into income you never have to manage.
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="mt-6 max-w-2xl text-lg text-muted"
+            >
+              Vending Forever places, stocks, and maintains the machine for
+              you, so a corner of your space earns without costing you a
+              minute. Prefer to run it yourself? Rent a machine instead, and
+              we'll still keep it working.
+            </motion.p>
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.15 }}
+              className="mt-10 flex flex-wrap gap-4"
+            >
+              <motion.a
+                href="#contact"
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                className="rounded-full bg-accent px-6 py-3 text-sm font-semibold text-accent-foreground"
+              >
+                Get a machine placed
+              </motion.a>
+              <motion.a
+                href={WHATSAPP_HREF}
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.03, borderColor: "var(--accent)" }}
+                whileTap={{ scale: 0.97 }}
+                className="flex items-center gap-2 rounded-full border border-border px-6 py-3 text-sm font-semibold hover:text-accent"
+              >
+                <WhatsAppIcon className="h-4 w-4" />
+                Chat on WhatsApp
+              </motion.a>
+            </motion.div>
           </div>
         </section>
 
         <section id="services" className="border-t border-border bg-surface">
           <div className="mx-auto max-w-6xl px-6 py-24">
-            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-              Two ways to work with us
-            </h2>
-            <p className="mt-4 max-w-2xl text-muted">
-              Whichever fits your space and how hands-on you want to be.
-            </p>
+            <Reveal>
+              <h2 className="font-display text-3xl font-semibold tracking-tight sm:text-4xl">
+                Two ways to work with us
+              </h2>
+              <p className="mt-4 max-w-2xl text-muted">
+                Whichever fits your space and how hands-on you want to be.
+              </p>
+            </Reveal>
             <div className="mt-12 grid gap-6 md:grid-cols-2">
-              {services.map((service) => (
-                <div
-                  key={service.name}
-                  className="rounded-2xl border border-border bg-surface-2 p-8"
-                >
-                  <h3 className="text-2xl font-semibold">{service.name}</h3>
-                  <p className="mt-1 text-sm font-medium text-accent">
-                    {service.tagline}
-                  </p>
-                  <p className="mt-4 text-muted">{service.description}</p>
-                  <ul className="mt-6 space-y-3">
-                    {service.bullets.map((bullet) => (
-                      <li key={bullet} className="flex gap-3 text-sm">
-                        <span className="mt-0.5 text-accent">✓</span>
-                        <span>{bullet}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+              {services.map((service, i) => (
+                <Reveal key={service.name} delay={i * 0.1}>
+                  <motion.div
+                    whileHover={{ y: -4, borderColor: "var(--accent)" }}
+                    transition={{ duration: 0.2 }}
+                    className="h-full rounded-2xl border border-border bg-surface-2 p-8"
+                  >
+                    <h3 className="font-display text-2xl font-semibold">
+                      {service.name}
+                    </h3>
+                    <p className="mt-1 text-sm font-medium text-accent">
+                      {service.tagline}
+                    </p>
+                    <p className="mt-4 text-muted">{service.description}</p>
+                    <ul className="mt-6 space-y-3">
+                      {service.bullets.map((bullet) => (
+                        <li key={bullet} className="flex gap-3 text-sm">
+                          <CheckIcon className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
+                          <span>{bullet}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </motion.div>
+                </Reveal>
               ))}
             </div>
           </div>
@@ -179,57 +319,111 @@ export default function Home() {
 
         <section id="how-it-works" className="border-t border-border">
           <div className="mx-auto max-w-6xl px-6 py-24">
-            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-              How it works
-            </h2>
+            <Reveal>
+              <h2 className="font-display text-3xl font-semibold tracking-tight sm:text-4xl">
+                How it works
+              </h2>
+            </Reveal>
             <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-              {steps.map((item) => (
-                <div key={item.step}>
-                  <p className="text-sm font-semibold text-accent">
+              {steps.map((item, i) => (
+                <Reveal key={item.step} delay={i * 0.08}>
+                  <p className="font-display text-sm font-semibold text-accent">
                     {item.step}
                   </p>
                   <h3 className="mt-2 text-lg font-semibold">{item.title}</h3>
                   <p className="mt-2 text-sm text-muted">
                     {item.description}
                   </p>
-                </div>
+                </Reveal>
               ))}
             </div>
           </div>
         </section>
 
-        <section
-          id="contact"
-          className="border-t border-border bg-surface"
-        >
+        <section className="border-t border-border bg-surface">
           <div className="mx-auto max-w-6xl px-6 py-24">
-            <div className="rounded-2xl border border-border bg-surface-2 p-10 sm:p-14">
-              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-                Ready to get a machine working?
+            <Reveal>
+              <h2 className="font-display text-3xl font-semibold tracking-tight sm:text-4xl">
+                Where we stand behind it
               </h2>
-              <p className="mt-4 max-w-xl text-muted">
-                Whether you want to rent a machine or have us place and run
-                one for you, get in touch and we&apos;ll sort the details.
+              <p className="mt-4 max-w-2xl text-muted">
+                No hostage contracts, no dead machines left to rot in the
+                corner. If it's not working, we fix it.
               </p>
-              <div className="mt-8 flex flex-wrap gap-4">
-                <a
-                  href={WHATSAPP_HREF}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-accent-foreground hover:opacity-90"
-                >
-                  <WhatsAppIcon className="h-4 w-4" />
-                  Chat on WhatsApp
-                </a>
-                <a
-                  href={EMAIL_HREF}
-                  className="flex items-center gap-2 rounded-full border border-border px-6 py-3 text-sm font-semibold hover:border-accent hover:text-accent"
-                >
-                  <MailIcon className="h-4 w-4" />
-                  Email us
-                </a>
-              </div>
+            </Reveal>
+            <div className="mt-12 grid gap-6 sm:grid-cols-3">
+              {guarantees.map((g, i) => (
+                <Reveal key={g.title} delay={i * 0.1}>
+                  <div className="h-full rounded-2xl border border-border bg-surface-2 p-6">
+                    <h3 className="font-semibold">{g.title}</h3>
+                    <p className="mt-2 text-sm text-muted">{g.description}</p>
+                  </div>
+                </Reveal>
+              ))}
             </div>
+          </div>
+        </section>
+
+        <section id="faq" className="border-t border-border">
+          <div className="mx-auto max-w-6xl px-6 py-24">
+            <Reveal>
+              <h2 className="font-display text-3xl font-semibold tracking-tight sm:text-4xl">
+                Questions people actually ask
+              </h2>
+            </Reveal>
+            <div className="mt-10 space-y-3">
+              {faqs.map((item, i) => (
+                <Reveal key={item.q} delay={i * 0.05}>
+                  <details className="group rounded-xl border border-border bg-surface-2 px-6 py-4 open:border-accent/50">
+                    <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-medium">
+                      {item.q}
+                      <span className="shrink-0 text-accent transition-transform group-open:rotate-45">
+                        +
+                      </span>
+                    </summary>
+                    <p className="mt-3 text-sm text-muted">{item.a}</p>
+                  </details>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="contact" className="border-t border-border bg-surface">
+          <div className="mx-auto max-w-6xl px-6 py-24">
+            <Reveal>
+              <div className="rounded-2xl border border-border bg-surface-2 p-10 sm:p-14">
+                <h2 className="font-display text-3xl font-semibold tracking-tight sm:text-4xl">
+                  Ready to get a machine working?
+                </h2>
+                <p className="mt-4 max-w-xl text-muted">
+                  Whether you want to rent a machine or have us place and run
+                  one for you, get in touch and we&apos;ll sort the details.
+                </p>
+                <div className="mt-8 flex flex-wrap gap-4">
+                  <motion.a
+                    href={WHATSAPP_HREF}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.97 }}
+                    className="flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-accent-foreground"
+                  >
+                    <WhatsAppIcon className="h-4 w-4" />
+                    Chat on WhatsApp
+                  </motion.a>
+                  <motion.a
+                    href={EMAIL_HREF}
+                    whileHover={{ scale: 1.03, borderColor: "var(--accent)" }}
+                    whileTap={{ scale: 0.97 }}
+                    className="flex items-center gap-2 rounded-full border border-border px-6 py-3 text-sm font-semibold hover:text-accent"
+                  >
+                    <MailIcon className="h-4 w-4" />
+                    Email us
+                  </motion.a>
+                </div>
+              </div>
+            </Reveal>
           </div>
         </section>
       </main>
@@ -266,9 +460,19 @@ export default function Home() {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Chat with us on WhatsApp"
-        className="fixed bottom-6 right-6 z-20 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg shadow-black/40 transition hover:scale-105"
+        className="fixed bottom-6 right-6 z-20 hidden h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg shadow-black/40 transition hover:scale-105 sm:flex"
       >
         <WhatsAppIcon className="h-7 w-7" />
+      </a>
+
+      <a
+        href={WHATSAPP_HREF}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed inset-x-0 bottom-0 z-20 flex items-center justify-center gap-2 bg-[#25D366] py-4 text-sm font-semibold text-white sm:hidden"
+      >
+        <WhatsAppIcon className="h-5 w-5" />
+        Chat with us on WhatsApp
       </a>
     </>
   );
