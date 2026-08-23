@@ -14,7 +14,10 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "Vending Forever | Vending Machine Rental & Full-Service Placement",
+  title: {
+    default: "Vending Forever | Vending Machine Rental & Full-Service Placement",
+    template: "%s | Vending Forever",
+  },
   description:
     "Vending Forever puts vending machines to work for you. Rent a machine outright, or let us place, stock, and maintain it in your location — hands-free income, zero hassle.",
 };
