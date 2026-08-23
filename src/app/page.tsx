@@ -1,7 +1,30 @@
-const PHONE_DISPLAY = "07492 585595";
-const PHONE_HREF = "tel:+447492585595";
+const WHATSAPP_HREF =
+  "https://wa.me/447492585595?text=Hi%20Vending%20Forever%2C%20I%27d%20like%20to%20find%20out%20more";
 const EMAIL = "chay@hireme.link";
 const EMAIL_HREF = `mailto:${EMAIL}`;
+
+function WhatsAppIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 32 32" fill="currentColor" className={className}>
+      <path d="M16.02 3C9.4 3 4.02 8.38 4.02 15c0 2.25.62 4.36 1.7 6.17L4 29l7.99-1.65A11.93 11.93 0 0 0 16.02 27C22.64 27 28 21.62 28 15S22.64 3 16.02 3Zm0 21.8a9.7 9.7 0 0 1-4.95-1.36l-.36-.21-4.74.98.98-4.62-.24-.38A9.72 9.72 0 0 1 6.22 15c0-5.4 4.4-9.8 9.8-9.8s9.8 4.4 9.8 9.8-4.4 9.8-9.8 9.8Zm5.37-7.34c-.29-.15-1.73-.85-2-.95-.27-.1-.47-.15-.66.15-.2.29-.76.95-.93 1.15-.17.19-.34.22-.63.07-.29-.15-1.22-.45-2.33-1.44-.86-.77-1.44-1.72-1.61-2.01-.17-.29-.02-.45.13-.6.13-.13.29-.34.44-.51.15-.17.19-.29.29-.48.1-.19.05-.36-.02-.51-.07-.15-.66-1.59-.9-2.18-.24-.57-.48-.49-.66-.5h-.56c-.19 0-.51.07-.78.36-.27.29-1.02 1-1.02 2.44s1.05 2.83 1.19 3.03c.15.19 2.06 3.15 5 4.42.7.3 1.24.48 1.67.61.7.22 1.34.19 1.84.12.56-.08 1.73-.71 1.98-1.39.24-.68.24-1.27.17-1.39-.07-.12-.26-.19-.55-.34Z" />
+    </svg>
+  );
+}
+
+function MailIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      className={className}
+    >
+      <rect x="3" y="5" width="18" height="14" rx="2" />
+      <path d="m4 7 8 6 8-6" />
+    </svg>
+  );
+}
 
 const services = [
   {
@@ -77,10 +100,13 @@ export default function Home() {
             </a>
           </nav>
           <a
-            href={PHONE_HREF}
-            className="rounded-full bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground hover:opacity-90"
+            href={WHATSAPP_HREF}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 rounded-full bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground hover:opacity-90"
           >
-            {PHONE_DISPLAY}
+            <WhatsAppIcon className="h-4 w-4" />
+            WhatsApp us
           </a>
         </div>
       </header>
@@ -107,10 +133,13 @@ export default function Home() {
               Get a machine placed
             </a>
             <a
-              href={PHONE_HREF}
-              className="rounded-full border border-border px-6 py-3 text-sm font-semibold hover:border-accent hover:text-accent"
+              href={WHATSAPP_HREF}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 rounded-full border border-border px-6 py-3 text-sm font-semibold hover:border-accent hover:text-accent"
             >
-              Call {PHONE_DISPLAY}
+              <WhatsAppIcon className="h-4 w-4" />
+              Chat on WhatsApp
             </a>
           </div>
         </section>
@@ -184,16 +213,20 @@ export default function Home() {
               </p>
               <div className="mt-8 flex flex-wrap gap-4">
                 <a
-                  href={PHONE_HREF}
-                  className="rounded-full bg-accent px-6 py-3 text-sm font-semibold text-accent-foreground hover:opacity-90"
+                  href={WHATSAPP_HREF}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-accent-foreground hover:opacity-90"
                 >
-                  Call {PHONE_DISPLAY}
+                  <WhatsAppIcon className="h-4 w-4" />
+                  Chat on WhatsApp
                 </a>
                 <a
                   href={EMAIL_HREF}
-                  className="rounded-full border border-border px-6 py-3 text-sm font-semibold hover:border-accent hover:text-accent"
+                  className="flex items-center gap-2 rounded-full border border-border px-6 py-3 text-sm font-semibold hover:border-accent hover:text-accent"
                 >
-                  Email {EMAIL}
+                  <MailIcon className="h-4 w-4" />
+                  Email us
                 </a>
               </div>
             </div>
@@ -208,15 +241,35 @@ export default function Home() {
             vending machine rental &amp; full-service placement.
           </p>
           <div className="flex gap-6">
-            <a href={PHONE_HREF} className="hover:text-foreground">
-              {PHONE_DISPLAY}
+            <a
+              href={WHATSAPP_HREF}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 hover:text-foreground"
+            >
+              <WhatsAppIcon className="h-4 w-4" />
+              WhatsApp
             </a>
-            <a href={EMAIL_HREF} className="hover:text-foreground">
-              {EMAIL}
+            <a
+              href={EMAIL_HREF}
+              className="flex items-center gap-2 hover:text-foreground"
+            >
+              <MailIcon className="h-4 w-4" />
+              Email us
             </a>
           </div>
         </div>
       </footer>
+
+      <a
+        href={WHATSAPP_HREF}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Chat with us on WhatsApp"
+        className="fixed bottom-6 right-6 z-20 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg shadow-black/40 transition hover:scale-105"
+      >
+        <WhatsAppIcon className="h-7 w-7" />
+      </a>
     </>
   );
 }
