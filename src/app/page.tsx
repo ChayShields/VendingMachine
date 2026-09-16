@@ -299,7 +299,7 @@ export default function Home() {
               Vending Forever places, stocks, and maintains the machine for
               you, so a corner of your space earns without costing you a
               minute. Prefer to run it yourself? Rent a machine instead, and
-              we'll still keep it working.
+              we&apos;ll still keep it working.
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 16 }}
@@ -401,7 +401,7 @@ export default function Home() {
               </h2>
               <p className="mt-4 max-w-2xl text-muted">
                 No hostage contracts, no dead machines left to rot in the
-                corner. If it's not working, we fix it.
+                corner. If it&apos;s not working, we fix it.
               </p>
             </Reveal>
             <div className="mt-12 grid gap-6 sm:grid-cols-3">
